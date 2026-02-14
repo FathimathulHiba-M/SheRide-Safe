@@ -78,14 +78,17 @@ Then open `http://localhost:8000` in your browser.
 
 ### Screenshots
 
-![Landing Page](https://via.placeholder.com/800x400?text=Landing+Page)
+<img width="1918" height="840" alt="Screenshot 2026-02-14 195245" src="https://github.com/user-attachments/assets/6b02c5ae-560d-4afb-a73b-9ed4689ef3de" />
+
 *The landing page provides quick access to emergency reporting.*
+<img width="1919" height="834" alt="Screenshot 2026-02-14 195814" src="https://github.com/user-attachments/assets/71b5e84c-ca71-468f-97c8-9fc164464afb" />
 
-![Reporting Form](https://via.placeholder.com/800x400?text=Reporting+Form)
 *Users can securely upload evidence and input details with auto-synced timestamps.*
+<img width="1919" height="833" alt="Screenshot 2026-02-14 200305" src="https://github.com/user-attachments/assets/0db0125e-a573-414a-97ee-f3983fe8f94f" />
 
-![Police Dashboard](https://via.placeholder.com/800x400?text=Police+Dashboard)
+
 *The Police Dispatch Portal showing active emergencies and credibility analysis.*
+<img width="1919" height="832" alt="Screenshot 2026-02-14 200528" src="https://github.com/user-attachments/assets/a6aa420f-12bf-44ea-8fac-9e08c8a3eff8" />
 
 ### Diagrams
 
