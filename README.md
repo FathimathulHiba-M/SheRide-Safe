@@ -3,7 +3,7 @@
 
 </p>
 
-# [SheRide Safe] 🎯
+# SheRide Safe 🎯
 
 ## Basic Details
 
