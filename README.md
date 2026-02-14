@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="./img.png" alt="Project Banner" width="100%">
+  <img width="1280" height="640" alt="image" src="https://github.com/user-attachments/assets/c9315342-5337-4c49-8b4e-36baa4ee88b8" />
+
 </p>
 
 # [SheRide Safe] 🎯
