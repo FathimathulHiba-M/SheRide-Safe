@@ -5,7 +5,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailsContainer = document.getElementById('evidence-details');
     const modal = document.getElementById('evidence-modal');
 
+    // Login Elements
+    const loginSection = document.getElementById('police-login');
+    const dashboardSection = document.getElementById('police-dashboard');
+    const loginForm = document.getElementById('login-form');
+    const logoutBtn = document.getElementById('logout-btn');
+
     let currentCaseID = null;
+
+    // Login Logic
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('police-id').value;
+        const pass = document.getElementById('police-pass').value;
+
+        if (id === 'police' && pass === 'secure911') {
+            loginSection.classList.add('hidden');
+            dashboardSection.classList.remove('hidden');
+            loadEmergencies();
+            // Start Auto-refresh only after login
+            setInterval(loadEmergencies, 5000);
+        } else {
+            alert('Unauthorized Access. Invalid Credentials.');
+        }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+        dashboardSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+        window.location.reload(); // Reset state
+    });
 
     async function loadEmergencies() {
         // Fetch all reports
@@ -226,9 +255,5 @@ document.addEventListener('DOMContentLoaded', () => {
         await updateStatus('POLICE_DISPATCHED');
     };
 
-    // Auto-refresh every 5 seconds
-    setInterval(loadEmergencies, 5000);
-
-    // Initial Load
-    loadEmergencies();
+    // Initial Load - Removed, handled by Login now
 });

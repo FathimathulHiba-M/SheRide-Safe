@@ -103,47 +103,77 @@
     </header>
 
     <main>
-        <div class="glass-panel" style="margin-bottom: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Active Incidents</h2>
-                <div style="font-family: monospace; color: #ff4d4d;">
-                    TOTAL ALERTS: <span id="alert-count" style="font-weight: bold; font-size: 1.5rem;">0</span>
+        <!-- Login Section -->
+        <section id="police-login" class="active"
+            style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+            <div class="card glass-panel" style="max-width: 400px; width: 100%; text-align: center;">
+                <i data-lucide="shield" style="width: 64px; height: 64px; color: #ff4d4d; margin-bottom: 20px;"></i>
+                <h2>Police Dispatch Login</h2>
+                <p style="margin-bottom: 20px; color: #bbb;">Restricted Access for Authorized Personnel Only.</p>
+                <form id="login-form">
+                    <input type="text" id="police-id" placeholder="Officer ID" required
+                        style="width: 100%; padding: 12px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 4px;">
+                    <input type="password" id="police-pass" placeholder="Secure Code" required
+                        style="width: 100%; padding: 12px; margin-bottom: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 4px;">
+                    <button type="submit" class="danger-btn"
+                        style="width: 100%; justify-content: center;">Authenticate</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Section (Hidden by default) -->
+        <div id="police-dashboard" class="container hidden">
+            <header style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="margin: 0; display: flex; align-items: center; gap: 10px;">
+                        <i data-lucide="siren" class="blink"></i>
+                        Emergency Dispatch
+                    </h1>
+                    <p style="margin: 5px 0 0 0; color: #aaa;">Real-time Monitoring of High-Priority Alerts</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="stat-box" style="display: inline-block;">
+                        <span id="alert-count" style="font-size: 2rem; font-weight: bold; color: #ff4d4d;">0</span>
+                        <br><small>Active Alerts</small>
+                    </div>
+                    <button id="logout-btn" class="secondary-btn small" style="margin-left: 20px;"><i
+                            data-lucide="log-out"></i> Logout</button>
+                </div>
+            </header>
+
+            <!-- Incidents Grid -->
+            <div id="emergency-container" class="incident-grid">
+                <!-- Populated by JS -->
+                <div class="glass-panel" style="grid-column: 1/-1; text-align: center; padding: 40px; opacity: 0.5;">
+                    <p>Waiting for incoming alerts...</p>
                 </div>
             </div>
         </div>
 
-        <div id="emergency-container" class="emergency-grid">
-            <!-- Emergencies injected here -->
-            <div class="glass-panel" style="text-align: center; color: #666;">
-                Currently no active emergencies. Standard monitoring in progress.
+        <!-- Detailed Evidence Modal -->
+        <div id="evidence-modal" class="modal hidden">
+            <div class="glass-panel modal-content" style="border: 2px solid red;">
+                <header class="modal-header" style="background: rgba(255,0,0,0.1);">
+                    <h2 style="color: #ff4d4d;">CASE EVIDENCE FILE</h2>
+                    <button onclick="document.getElementById('evidence-modal').classList.add('hidden')"
+                        class="icon-btn"><i data-lucide="x"></i></button>
+                </header>
+                <div class="modal-body">
+                    <div id="evidence-details"></div>
+                    <div id="evidence-media" style="margin-top: 20px;"></div>
+                </div>
+                <footer class="modal-footer">
+                    <button class="danger-btn" onclick="updateStatus('DISPATCHED')">DISPATCH UNIT</button>
+                    <button class="primary-btn" onclick="updateStatus('RESOLVED')">MARK RESOLVED</button>
+                </footer>
             </div>
         </div>
-    </main>
 
-    <!-- Detailed Evidence Modal -->
-    <div id="evidence-modal" class="modal hidden">
-        <div class="glass-panel modal-content" style="border: 2px solid red;">
-            <header class="modal-header" style="background: rgba(255,0,0,0.1);">
-                <h2 style="color: #ff4d4d;">CASE EVIDENCE FILE</h2>
-                <button onclick="document.getElementById('evidence-modal').classList.add('hidden')" class="icon-btn"><i
-                        data-lucide="x"></i></button>
-            </header>
-            <div class="modal-body">
-                <div id="evidence-details"></div>
-                <div id="evidence-media" style="margin-top: 20px;"></div>
-            </div>
-            <footer class="modal-footer">
-                <button class="danger-btn" onclick="updateStatus('DISPATCHED')">DISPATCH UNIT</button>
-                <button class="primary-btn" onclick="updateStatus('RESOLVED')">MARK RESOLVED</button>
-            </footer>
-        </div>
-    </div>
-
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script src="js/config.js"></script>
-    <script src="js/db.js"></script>
-    <script src="police.js"></script>
-    <script>lucide.createIcons();</script>
+        <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+        <script src="js/config.js"></script>
+        <script src="js/db.js"></script>
+        <script src="police.js"></script>
+        <script>lucide.createIcons();</script>
 </body>
 
 </html>

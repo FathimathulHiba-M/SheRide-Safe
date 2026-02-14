@@ -221,6 +221,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 6. Case Tracking
+    const trackInput = document.getElementById('track-id-input');
+    const trackBtn = document.getElementById('track-btn');
+
+    if (trackBtn && trackInput) {
+        trackBtn.addEventListener('click', async () => {
+            const caseId = trackInput.value.trim().toUpperCase();
+            if (!caseId) return;
+
+            // Fetch from DB
+            try {
+                const reports = await Database.fetchReports();
+                const report = reports.find(r => r.caseID === caseId);
+
+                if (report) {
+                    alert(`CASE STATUS (${caseId}): ${report.status}\n\nType: ${report.incidentType}\nTime: ${new Date(report.timestamp).toLocaleString()}`);
+                } else {
+                    alert(`Case ID ${caseId} not found. Please check and try again.`);
+                }
+            } catch (e) {
+                console.error("Tracking Error", e);
+                alert("Could not checking status. Network error.");
+            }
+        });
+    }
+
     // Auto-init icons if added dynamically (though mostly static here)
     if (window.lucide) {
         lucide.createIcons();

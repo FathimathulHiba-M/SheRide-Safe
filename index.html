@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SheRide Safe - Secure Reporting System</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #track-id-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #track-id-input:focus {
+            width: 140px;
+        }
+
+        #track-id-input {
+            transition: width 0.3s ease;
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -22,10 +35,17 @@
             <i data-lucide="shield-alert"></i>
             <span>SheRide Safe</span>
         </div>
-        <nav>
+        <nav style="display: flex; align-items: center; gap: 15px;">
+            <div
+                style="display: flex; align-items: center; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">
+                <input type="text" id="track-id-input" placeholder="Track Case ID..."
+                    style="background: transparent; border: none; color: white; width: 100px; font-size: 0.8rem; outline: none;">
+                <button id="track-btn" style="background: transparent; border: none; color: white; cursor: pointer;"><i
+                        data-lucide="search" style="width: 16px; height: 16px;"></i></button>
+            </div>
             <a href="#" class="active">Report</a>
-            <a href="#">Resources</a>
-            <a href="#">Contact</a>
+            <a href="./admin.html">Admin</a>
+            <a href="./police.html">Police</a>
         </nav>
     </header>
 
