@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLICE EMERGENCY DISPATCH - SheRide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .police-body {
+            background: #000;
+        }
+
+        .police-header {
+            background: #2c0000;
+            border-bottom: 2px solid #ff0000;
+        }
+
+        .police-logo {
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .emergency-card {
+            border: 1px solid #ff4d4d;
+            background: rgba(255, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1s infinite;
+            margin-right: 5px;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+            }
+        }
+
+        .evidence-preview img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid #555;
+        }
+
+        .action-bar {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .blinking-text {
+            animation: blinker 1s linear infinite;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="police-body">
+    <header class="police-header">
+        <div class="logo police-logo">
+            <i data-lucide="siren"></i>
+            <span>Police Dispatch - EMERGENCY MODE</span>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <span class="blinking-text">LIVE MONITORING ACTIVE</span>
+            <button onclick="location.reload()" class="secondary-btn small"><i data-lucide="refresh-cw"></i>
+                Refresh</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="glass-panel" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Active Incidents</h2>
+                <div style="font-family: monospace; color: #ff4d4d;">
+                    TOTAL ALERTS: <span id="alert-count" style="font-weight: bold; font-size: 1.5rem;">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="emergency-container" class="emergency-grid">
+            <!-- Emergencies injected here -->
+            <div class="glass-panel" style="text-align: center; color: #666;">
+                Currently no active emergencies. Standard monitoring in progress.
+            </div>
+        </div>
+    </main>
+
+    <!-- Detailed Evidence Modal -->
+    <div id="evidence-modal" class="modal hidden">
+        <div class="glass-panel modal-content" style="border: 2px solid red;">
+            <header class="modal-header" style="background: rgba(255,0,0,0.1);">
+                <h2 style="color: #ff4d4d;">CASE EVIDENCE FILE</h2>
+                <button onclick="document.getElementById('evidence-modal').classList.add('hidden')" class="icon-btn"><i
+                        data-lucide="x"></i></button>
+            </header>
+            <div class="modal-body">
+                <div id="evidence-details"></div>
+                <div id="evidence-media" style="margin-top: 20px;"></div>
+            </div>
+            <footer class="modal-footer">
+                <button class="danger-btn" onclick="updateStatus('DISPATCHED')">DISPATCH UNIT</button>
+                <button class="primary-btn" onclick="updateStatus('RESOLVED')">MARK RESOLVED</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script src="police.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

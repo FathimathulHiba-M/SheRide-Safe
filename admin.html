@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheRide Safe - Admin Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="admin-body">
+    <div class="background-globes">
+        <div class="globe globe-admin-1"></div>
+        <div class="globe globe-admin-2"></div>
+    </div>
+
+    <!-- Login Screen -->
+    <section id="admin-login" class="active">
+        <div class="card glass-panel login-panel">
+            <div class="logo">
+                <i data-lucide="shield-check"></i>
+                <span>SheRide Authority</span>
+            </div>
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Officer ID</label>
+                    <input type="text" id="admin-id" placeholder="Officer ID" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="admin-pass" placeholder="Password" required>
+                </div>
+                <button type="submit" class="primary-btn full-width">Login</button>
+            </form>
+            <p class="hint">Use <strong>admin</strong> / <strong>admin123</strong></p>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="hidden dashboard-layout">
+        <aside class="sidebar glass-panel">
+            <div class="logo small">
+                <i data-lucide="shield"></i>
+                <span>Authority</span>
+            </div>
+            <nav class="admin-nav">
+                <a href="#" class="active" onclick="filterReports('all')"><i data-lucide="list"></i> All Reports</a>
+                <a href="#" onclick="filterReports('emergency')"><i data-lucide="siren"></i> Emergencies</a>
+                <a href="#" onclick="filterReports('pending')"><i data-lucide="clock"></i> Pending</a>
+                <a href="#" onclick="filterReports('resolved')"><i data-lucide="check-square"></i> Resolved</a>
+            </nav>
+            <div class="logout-container">
+                <button id="reset-db-btn" class="danger-btn small"
+                    style="margin-bottom: 10px; width: 100%; justify-content: center;"><i data-lucide="trash-2"></i>
+                    Reset Demo</button>
+                <button id="logout-btn" class="secondary-btn small" style="width: 100%; justify-content: center;"><i
+                        data-lucide="log-out"></i> Logout</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-content">
+            <header class="dashboard-header">
+                <h1>Report Overview</h1>
+                <div class="stats-row">
+                    <div class="stat-card glass-panel">
+                        <h3>Total Reports</h3>
+                        <span id="stat-total">0</span>
+                    </div>
+                    <div class="stat-card glass-panel emergency">
+                        <h3>Active Emergencies</h3>
+                        <span id="stat-emergency">0</span>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <h3>Pending Review</h3>
+                        <span id="stat-pending">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="reports-table-container glass-panel">
+                <table id="reports-table">
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Date/Time</th>
+                            <th>Type</th>
+                            <th>Bus #</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reports-body">
+                        <!-- Rows injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Report Detail Modal -->
+    <div id="report-modal" class="modal hidden">
+        <div class="glass-panel modal-content">
+            <header class="modal-header">
+                <h2 id="modal-case-id">Case #</h2>
+                <button id="close-modal" class="icon-btn"><i data-lucide="x"></i></button>
+            </header>
+            <div class="modal-body">
+                <div class="detail-row">
+                    <strong>Status:</strong>
+                    <select id="modal-status">
+                        <option value="SUBMITTED">Submitted</option>
+                        <option value="POLICE_DISPATCHED">Police Dispatched</option>
+                        <option value="INVESTIGATING">Investigating</option>
+                        <option value="RESOLVED">Resolved</option>
+                        <option value="FALSE_ALARM">False Alarm</option>
+                    </select>
+                </div>
+                <div class="detail-grid">
+                    <div>
+                        <label>Incident Type</label>
+                        <p id="modal-type">Type</p>
+                    </div>
+                    <div>
+                        <label>Bus / Route</label>
+                        <p id="modal-bus">Bus</p>
+                    </div>
+                    <div>
+                        <label>Time Reported</label>
+                        <p id="modal-time">Time</p>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <label>Description</label>
+                    <p id="modal-desc" class="desc-box">Description text...</p>
+                </div>
+                <div class="detail-section">
+                    <label>Evidence Files</label>
+                    <div id="modal-files" class="file-list">No files attached.</div>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <button id="save-report-changes" class="primary-btn">Update Status</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script src="admin.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

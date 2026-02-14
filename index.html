@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SheRide Safe - Secure Reporting System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <i data-lucide="shield-alert"></i>
+            <span>SheRide Safe</span>
+        </div>
+        <nav>
+            <a href="#" class="active">Report</a>
+            <a href="#">Resources</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Landing Page -->
+        <section id="landing-page" class="active">
+            <div class="hero-content">
+                <h1>Report Harassment Securely & Anonymously</h1>
+                <p>Empowering safer public transport with verified swift action.</p>
+                <button id="start-report-btn" class="primary-btn">
+                    Open Website/App <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Screening -->
+        <section id="screening-step" class="hidden">
+            <div class="card glass-panel">
+                <h2>Initial Screening</h2>
+                <p>Is the incident related to harassment or unsafe behavior on public transport?</p>
+                <div class="actions">
+                    <button id="screening-yes-btn" class="primary-btn">Yes, Report Incident</button>
+                    <button id="screening-no-btn" class="secondary-btn">No, Other Issue</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complaint Form -->
+        <section id="complaint-form-step" class="hidden">
+            <div class="card glass-panel">
+                <h2>File a Complaint</h2>
+                <form id="report-form">
+                    <div class="form-group">
+                        <label for="bus-number">Bus Number / Route</label>
+                        <input type="text" id="bus-number" placeholder="e.g. 500D, KA-01-F-1234" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="incident-type">Type of Incident</label>
+                        <select id="incident-type" required>
+                            <option value="">Select Incident Type</option>
+                            <option value="verbal">Verbal Harassment</option>
+                            <option value="physical">Physical Harassment</option>
+                            <option value="stalking">Stalking/Following</option>
+                            <option value="photography">Unwanted Photography/Video</option>
+                            <option value="other">Other Unsafe Behavior</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="incident-time">Time of Incident</label>
+                        <input type="datetime-local" id="incident-time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="4" placeholder="Describe what happened..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="evidence-upload" class="upload-label">
+                            <i data-lucide="upload-cloud"></i>
+                            <span>Upload Evidence (Photo/Video/Audio)</span>
+                            <input type="file" id="evidence-upload" accept="image/*,video/*,audio/*" multiple hidden>
+                        </label>
+                        <div id="file-list"></div>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="primary-btn">Proceed <i data-lucide="arrow-right"></i></button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Emergency Check -->
+        <section id="emergency-check-step" class="hidden">
+            <div class="card glass-panel emergency-alert">
+                <i data-lucide="siren" class="emergency-icon"></i>
+                <h2>Is this an Emergency?</h2>
+                <p>Do you need immediate police assistance or are you in immediate danger?</p>
+                <div class="actions">
+                    <button id="emergency-yes-btn" class="danger-btn">Yes, Alert Police</button>
+                    <button id="emergency-no-btn" class="primary-btn">No, Submit Report</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Confirmation -->
+        <section id="confirmation-step" class="hidden">
+            <div class="card glass-panel success-panel">
+                <i data-lucide="check-circle" class="success-icon"></i>
+                <h2>Report Submitted Successfully</h2>
+                <p>Your report has been securely logged. Authorities will review it shortly.</p>
+                <div class="case-id-box">
+                    <span>Case ID:</span>
+                    <strong id="case-id-display">Generating...</strong>
+                </div>
+                <p class="status-msg">State: <span id="submission-status">Processing</span></p>
+                <button id="home-btn" class="secondary-btn">Return Home</button>
+            </div>
+        </section>
+
+        <!-- Police Alert Confirmation -->
+        <section id="police-alert-step" class="hidden">
+            <div class="card glass-panel danger-panel">
+                <i data-lucide="alert-triangle" class="danger-icon"></i>
+                <h2>Police Alert Triggered!</h2>
+                <p>Emergency services have been notified of your location and report details.</p>
+                <div class="case-id-box">
+                    <span>Emergency ID:</span>
+                    <strong id="emergency-id-display">Generating...</strong>
+                </div>
+                <p class="status-msg">Status: <span class="blink">Dispatching Help...</span></p>
+                <button id="home-btn-2" class="secondary-btn">Return Home</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="margin-top: 50px; text-align: center; opacity: 0.3; padding-bottom: 20px;">
+        <a href="admin.html"
+            style="color: white; text-decoration: none; font-size: 0.8rem; margin-right: 20px;">Authority Admin</a>
+        <a href="police.html" style="color: #ff4d4d; text-decoration: none; font-size: 0.8rem;">Police Dispatch</a>
+    </footer>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
