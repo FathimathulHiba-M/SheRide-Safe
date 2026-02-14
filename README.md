@@ -7,7 +7,7 @@
 
 ## Basic Details
 
-### Team Name: [Queen Bees.]
+### Team Name: Queen Bees.
 
 ### Team Members
 - Member 1: [Anjana VP] - [Kannur University Mangattuparamba Campus]
